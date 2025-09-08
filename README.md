@@ -1,76 +1,59 @@
--- Script Hub usando Array Field UI Library
--- Carrega a biblioteca Array Field UI
-local ArrayField = loadstring(game:HttpGet("https://raw.githubusercontent.com/Hosvile/Refinement/main/MC%3AArrayfield%20Library"))()
+-- Script Hub usando Orion Library
+-- Carrega a biblioteca Orion
+local ServerUi = loadstring(game:HttpGet("https://raw.githubusercontent.com/ServerSad/UiLib/refs/heads/main/Lib/uilib.lua"))()
 
--- Cria a janela principal
-local Window = ArrayField:CreateWindow({
-    Name = "Gusta Hub",
-    LoadingTitle = "Carregando...",
-    LoadingSubtitle = "by Gusta",
-    ConfigurationSaving = {
-        Enabled = false,
-        FolderName = "ScriptHub",
-        FileName = "Config"
+-- Configurar cargos
+ServerUi:MakeRoles({
+    Admin = {
+        Color = "#FFFFFF",
+        Users = {123456789}
     },
-    Discord = {
-        Enabled = false,
-        Invite = "",
-        RememberJoins = false
-    },
-    KeySystem = false,
-    KeySettings = {
-        Title = "Gusta Hub",
-        Subtitle = "Key System",
-        Note = "Sem sistema de key",
-        FileName = "ScriptHubKey",
-        SaveKey = false,
-        GrabKeyFromSite = false,
-        Key = ""
+    Player = {
+        Color = "#FFFFFF",
+        Users = "everyone"
     }
 })
 
--- Cria uma aba para os scripts
-local Tab = Window:CreateTab("Scripts", 4483362458) -- Ícone de script
+-- Criar janela principal
+local Window = ServerUi:MakeWindow({
+    Name = "Gusta Hub        ",
+    SaveConfig = false,
+    ConfigFolder = "GustaHub            ",
+    IntroText = "Bem-vindo ao Gusta Hub!",
+    IntroEnabled = true,
+    ShowIcon = true,
+    Icon = "rbxassetid://4483362458",
+    IntroIcon = "rbxassetid://4483362458",
+    KeySystem = false -- Sistema de chave desabilitado
+})
 
--- Adiciona notificação de sucesso
+-- Criar aba para scripts
+local ScriptsTab = Window:MakeTab({
+    Name = "Scripts",
+    Icon = "rbxassetid://4483362458"
+})
+
+-- Função para notificar sucesso
 local function NotifySuccess(hubName)
-    ArrayField:Notify({
+    Window:Notify({
         Title = "Sucesso!",
         Content = hubName .. " foi executado com sucesso!",
-        Duration = 3,
-        Image = 4483362458,
-        Actions = {
-            Ignore = {
-                Name = "Ok",
-                Callback = function()
-                    print("Notificação fechada")
-                end
-            }
-        }
+        Duration = 3
     })
 end
 
--- Adiciona notificação de erro
+-- Função para notificar erro
 local function NotifyError(hubName, errorMsg)
-    ArrayField:Notify({
+    Window:Notify({
         Title = "Erro!",
         Content = "Falha ao executar " .. hubName .. ": " .. tostring(errorMsg),
-        Duration = 5,
-        Image = 4483362458,
-        Actions = {
-            Ignore = {
-                Name = "Ok",
-                Callback = function()
-                    print("Notificação de erro fechada")
-                end
-            }
-        }
+        Duration = 5
     })
 end
 
 -- Botão para Fps Killer
-Tab:CreateButton({
-    Name = "Fps Killer   PRECISA DE AURA!",
+ScriptsTab:AddButton({
+    Name = "Fps Killer - PRECISA DE AURA!",
     Callback = function()
         local success, err = pcall(function()
             -- GUSTA FPS KILLER Script Inline
@@ -407,7 +390,7 @@ Tab:CreateButton({
 })
 
 -- Botão para Chilli Hub
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "Chilli Hub",
     Callback = function()
         local success, err = pcall(function()
@@ -425,7 +408,7 @@ Tab:CreateButton({
 })
 
 -- Botão para Ugly Hub
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "Ugly Hub",
     Callback = function()
         local success, err = pcall(function()
@@ -443,7 +426,7 @@ Tab:CreateButton({
 })
 
 -- Botão para Ugly Pet Finder
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "Ugly Pet Finder",
     Callback = function()
         local success, err = pcall(function()
@@ -461,7 +444,7 @@ Tab:CreateButton({
 })
 
 -- Botão para NSLX x MKZ Pet Finder
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "NSLX x MKZ Pet Finder",
     Callback = function()
         local success, err = pcall(function()
@@ -480,7 +463,7 @@ Tab:CreateButton({
 })
 
 -- Botão para Kurd Hub
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "Kurd Hub",
     Callback = function()
         local success, err = pcall(function()
@@ -498,7 +481,7 @@ Tab:CreateButton({
 })
 
 -- Botão para Miranda Hub
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "Miranda Hub",
     Callback = function()
         local success, err = pcall(function()
@@ -516,7 +499,7 @@ Tab:CreateButton({
 })
 
 -- Botão para Lennon Hub
-Tab:CreateButton({
+ScriptsTab:AddButton({
     Name = "Lennon Hub",
     Callback = function()
         local success, err = pcall(function()
@@ -533,23 +516,5 @@ Tab:CreateButton({
     end,
 })
 
--- Adiciona o botão "Miranda Mod" ao Script Hub
-Tab:CreateButton({
-    Name = "Miranda Mod",
-    Callback = function()
-        local success, err = pcall(function()
-            loadstring(game:HttpGet("https://pastefy.app/RfArY2M3/raw"))()
-        end)
-        if success then
-            NotifySuccess("Miranda Mod")
-            print("[ScriptHub] Miranda Mod executado com sucesso!")
-        else
-            NotifyError("Miranda Mod", err)
-            warn("[ScriptHub] Erro ao executar Miranda Mod: " .. tostring(err))
-        end
-    end,
-})
-
 -- Inicialização completa
-ArrayField:LoadConfiguration()
-print("Script Hub carregado com sucesso!")
+print("Gusta Hub (Orion) carregado com sucesso!")
